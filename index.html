@@ -1,0 +1,906 @@
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maru - DryFRUITS</title>
+    <link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <!-- this file is headach -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"   
+        integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="stylesheet" href="footer.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+   </head>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-image: url("body.jpg"); /* simplified path */
+      background-size: cover;
+      background-position: center;
+    }
+
+    header {
+      background: #000;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 2rem;
+    }
+
+    nav img {
+      border-radius: 50%;
+      width: 80px;
+      height: 60px;
+      object-fit: cover;
+    }
+
+    .nav-btns {
+      display: flex;
+      gap: 20px;
+    }
+
+    .nav-btns a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .user {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .user a i {
+      font-size: 1.2rem;
+    }
+
+    .digital-clock {
+      color: white;
+      font-size: 20px;
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <header>
+    <nav>
+      <!-- Logo -->
+      <img src="images/logo.jpg" alt="Logo">
+
+      <!-- Navigation Links -->
+      <div class="nav-btns">
+        <a class="home" href="#">Home</a>
+        <a class="about" href="/ABOUT DESIGN/about.html">About</a>
+        <a class="shop" href="/PRODUCTS DESIGN/PRODUCT.HTML">Product</a>
+        <a class="contact" href="/CONTACT DESIGN/contact.html">Contact</a>
+      </div>
+
+      <!-- User + Clock -->
+      <div class="user">
+        <!-- Cart -->
+        <a href="/cart"><i class="fa-solid fa-cart-shopping" style="color: white;"></i></a>
+        <!-- Login -->
+        <a href="/ACCOUNTS LOGIN/login-register.html"><i class="fa-solid fa-user" style="color: white;"></i></a>
+        <!-- Clock -->
+        <div class="digital-clock">
+          <span id="clock">00:00</span>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Clock JavaScript -->
+  <script>
+    function updateClock() {
+      var now = new Date();
+      var hours = String(now.getHours()).padStart(2, '0');
+      var minutes = String(now.getMinutes()).padStart(2, '0');
+      document.getElementById('clock').textContent = `${hours}:${minutes}`;
+    }
+
+    setInterval(updateClock, 1000);
+    updateClock();
+  </script>
+    
+       
+<div id="main">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            overflow-x: hidden;
+        }
+
+        .hero-slider {
+            position: relative;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 100%;
+            width: 100%;
+            height: 100%;
+            transition: left 0.8s ease-in-out;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .slide.active {
+            left: 0;
+            z-index: 2;
+        }
+
+        .slide.prev {
+            left: -100%;
+        }
+
+        .slide::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(0,0,0,0.4), rgba(0,0,0,0.2));
+            z-index: 1;
+        }
+
+        .slide-content {
+            position: relative;
+            z-index: 3;
+            text-align: center;
+            color: white;
+            max-width: 800px;
+            padding: 2rem;
+            animation: slideInUp 1s ease-out;
+        }
+
+        .slide.active .slide-content {
+            animation: slideInUp 1s ease-out;
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .brand-title {
+            font-size: 4rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            background: linear-gradient(45deg, #ff6b35, #f7931e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .slide-title {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .slide-subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+            opacity: 0.9;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: linear-gradient(45deg, #ff6b35, #f7931e);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(255, 107, 53, 0.3);
+            border: none;
+            cursor: pointer;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(255, 107, 53, 0.4);
+        }
+
+        /* Slide backgrounds */
+        .slide-1 {
+background-image: url(hero1.jpg);
+        }
+
+        .slide-2 {
+background-image: url(hero2.jpg);
+        }
+
+        .slide-3 {
+background-image: url(hero3.jpg);
+        }
+
+        .slide-4 {
+background-image: url(hero4.jpg);
+        }
+
+        .slide-5 {
+background-image: url(hero5.jpg);
+        }
+
+        /* Navigation */
+        .nav-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            font-size: 2rem;
+            padding: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 10;
+            backdrop-filter: blur(10px);
+            border-radius: 50%;
+        }
+
+        .nav-button:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .prev {
+            left: 2rem;
+        }
+
+        .next {
+            right: 2rem;
+        }
+
+        /* Dots indicator */
+        .dots-container {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 1rem;
+            z-index: 10;
+        }
+
+        .dot {
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .dot.active {
+            background: #ff6b35;
+            transform: scale(1.2);
+        }
+
+        /* Floating elements */
+        .floating-element {
+            position: absolute;
+            opacity: 0.1;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .floating-element:nth-child(1) { top: 20%; left: 10%; animation-delay: 0s; }
+        .floating-element:nth-child(2) { top: 60%; right: 15%; animation-delay: 2s; }
+        .floating-element:nth-child(3) { bottom: 30%; left: 20%; animation-delay: 4s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .brand-title {
+                font-size: 2.5rem;
+            }
+            
+            .slide-title {
+                font-size: 2rem;
+            }
+            
+            .slide-subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .nav-button {
+                font-size: 1.5rem;
+                padding: 0.8rem;
+            }
+            
+            .prev { left: 1rem; }
+            .next { right: 1rem; }
+        }
+    </style>
+    <div class="hero-slider">
+        <!-- Slide 1: Almonds -->
+        <div class="slide slide-1 active">
+            <div class="floating-element">🌰</div>
+            <div class="floating-element">🌰</div>
+            <div class="floating-element">🌰</div>
+            <!-- <div class="slide-content">
+                <h1 class="brand-title">MARU</h1>
+                <h2 class="slide-title">Premium Almonds</h2>
+                <p class="slide-subtitle">Rich in protein, healthy fats, and essential nutrients. Perfect for your daily wellness routine.</p>
+                <button class="cta-button">Shop Almonds</button>
+            </div> -->
+        </div>
+
+        <!-- Slide 2: Pistachios -->
+        <div class="slide slide-2">
+            <div class="floating-element">🥜</div>
+            <div class="floating-element">🥜</div>
+            <div class="floating-element">🥜</div>
+            <!-- <div class="slide-content">
+                <h1 class="brand-title">MARU</h1>
+                <h2 class="slide-title">Fresh Pistachios</h2>
+                <p class="slide-subtitle">Crispy, flavorful, and naturally delicious. Sourced from the finest orchards worldwide.</p>
+                <button class="cta-button">Shop Pistachios</button>
+            </div> -->
+        </div>
+
+        <!-- Slide 3: Walnuts -->
+        <div class="slide slide-3">
+            <div class="floating-element">🌰</div>
+            <div class="floating-element">🌰</div>
+            <div class="floating-element">🌰</div>
+            <!-- <div class="slide-content">
+                <h1 class="brand-title">MARU</h1>
+                <h2 class="slide-title">Organic Walnuts</h2>
+                <p class="slide-subtitle">Brain food at its finest. Packed with omega-3 fatty acids and antioxidants.</p>
+                <button class="cta-button">Shop Walnuts</button>
+            </div> -->
+        </div>
+
+        <!-- Slide 4: Dried Cranberries -->
+        <div class="slide slide-4">
+            <div class="floating-element">🫐</div>
+            <div class="floating-element">🫐</div>
+            <div class="floating-element">🫐</div>
+            <!-- <div class="slide-content">
+                <h1 class="brand-title">MARU</h1>
+                <h2 class="slide-title">Dried Cranberries</h2>
+                <p class="slide-subtitle">Sweet, tangy, and bursting with flavor. Perfect for snacking or baking.</p>
+                <button class="cta-button">Shop Cranberries</button>
+            </div> -->
+        </div>
+
+        <!-- Slide 5: Mixed Nuts -->
+        <div class="slide slide-5">
+            <div class="floating-element">🥜</div>
+            <div class="floating-element">🌰</div>
+            <div class="floating-element">🥜</div>
+            <!-- <div class="slide-content">
+                <h1 class="brand-title">MARU</h1>
+                <h2 class="slide-title">Premium Mix</h2>
+                <p class="slide-subtitle">The perfect blend of our finest nuts and dried fruits. Premium quality, exceptional taste.</p>
+                <button class="cta-button">Shop Collection</button>
+            </div> -->
+        </div>
+
+        <!-- Navigation -->
+        <button class="nav-button prev" onclick="changeSlide(-1)">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+        <button class="nav-button next" onclick="changeSlide(1)">
+            <i class="fas fa-chevron-right"></i>
+        </button>
+
+        <!-- Dots -->
+        <div class="dots-container">
+            <span class="dot active" onclick="currentSlide(1)"></span>
+            <span class="dot" onclick="currentSlide(2)"></span>
+            <span class="dot" onclick="currentSlide(3)"></span>
+            <span class="dot" onclick="currentSlide(4)"></span>
+            <span class="dot" onclick="currentSlide(5)"></span>
+        </div>
+    </div>
+
+    <script>
+        let currentSlideIndex = 0;
+        const slides = document.querySelectorAll('.slide');
+        const dots = document.querySelectorAll('.dot');
+        let autoSlideInterval;
+
+        function showSlide(index) {
+            // Remove active and prev classes from all slides
+            slides.forEach((slide, i) => {
+                slide.classList.remove('active', 'prev');
+                if (i < index) {
+                    slide.classList.add('prev');
+                } else if (i === index) {
+                    slide.classList.add('active');
+                }
+            });
+            
+            // Update dots
+            dots.forEach(dot => dot.classList.remove('active'));
+            dots[index].classList.add('active');
+        }
+
+        function changeSlide(direction) {
+            currentSlideIndex += direction;
+            
+            if (currentSlideIndex >= slides.length) {
+                currentSlideIndex = 0;
+            } else if (currentSlideIndex < 0) {
+                currentSlideIndex = slides.length - 1;
+            }
+            
+            showSlide(currentSlideIndex);
+            resetAutoSlide();
+        }
+
+        function currentSlide(index) {
+            currentSlideIndex = index - 1;
+            showSlide(currentSlideIndex);
+            resetAutoSlide();
+        }
+
+        function autoSlide() {
+            currentSlideIndex++;
+            if (currentSlideIndex >= slides.length) {
+                currentSlideIndex = 0;
+            }
+            showSlide(currentSlideIndex);
+        }
+
+        function resetAutoSlide() {
+            clearInterval(autoSlideInterval);
+            autoSlideInterval = setInterval(autoSlide, 3000);
+        }
+
+        // Initialize auto-slide
+        autoSlideInterval = setInterval(autoSlide, 3000);
+
+        // Pause auto-slide on hover
+        const slider = document.querySelector('.hero-slider');
+        slider.addEventListener('mouseenter', () => clearInterval(autoSlideInterval));
+        slider.addEventListener('mouseleave', () => resetAutoSlide());
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') changeSlide(-1);
+            if (e.key === 'ArrowRight') changeSlide(1);
+        });
+
+        // Touch/swipe support
+        let startX = 0;
+        let endX = 0;
+
+        slider.addEventListener('touchstart', (e) => {
+            startX = e.touches[0].clientX;
+        });
+
+        slider.addEventListener('touchend', (e) => {
+            endX = e.changedTouches[0].clientX;
+            handleSwipe();
+        });
+
+        function handleSwipe() {
+            const diff = startX - endX;
+            const swipeThreshold = 50;
+            
+            if (Math.abs(diff) > swipeThreshold) {
+                if (diff > 0) {
+                    changeSlide(1); // Swipe left - next slide
+                } else {
+                    changeSlide(-1); // Swipe right - previous slide
+                }
+            }
+        }
+    </script>
+  
+        <!-- break-->
+  <hr style="border: none; height: 2px; background-color: gold;">
+ <header style="background:#111; padding:20px; text-align:center; border-bottom:1px solid gold;">
+  <h1 style="font-family:'Playfair Display',serif; font-size:2.5em; color:gold; margin:0;">BEST PRODUCTS</h1>
+  <p style="color:#ccc;">Make your life healthy.</p>
+ </header>
+ <br>
+ <section class="products">
+  <!-- Products page 2  -->
+  
+  <div class="product-card">
+    <img src="/HOMEPAGE DESIGN/images/best-almond.jpg" alt="Almonds">
+    <h2>Kashmiri Almonds</h2>
+   
+  </div>
+  <div class="product-card">
+    <a href="/PRODUCTS DESIGN/PRODUCT.HTML">
+        <img src="images/best-pista.jpg" alt="Pistachios">
+    </a>
+    <h2>Lahori Pista</h2>
+   
+  </div>
+  
+    <div class="product-card">
+        <a href="/PRODUCTS DESIGN/PRODUCT.HTML">
+            <img src="images/best-wallnut.jpg" alt="Wallnuts">
+        </a>
+      <h2>Multuni Wallnuts</h2>
+      
+     
+       
+    </div>
+    <div class="product-card">
+        <a href="/PRODUCTS DESIGN/PRODUCT.HTML">
+            <img src="images/best-dates.jpg" alt="Dates">
+        </a>
+    <h2>Dubai Dates</h2>
+   
+  </div>
+    </section>
+<br><br>
+        <!-- page 3 -->
+               
+  <hr style="border: none; height: 2px; background-color: gold;">
+<header style="background:#111; padding:20px; text-align:center; border-bottom:1px solid gold;">
+  <h1 style="font-family:'Playfair Display',serif; font-size:2.5em; color:gold; margin:0;">SPECIAL OFFER</h1>
+  
+</header>
+
+        <div id="page3">
+            <div class="page3-in" >
+                <h4>💪 Boost Your Wellness</h4>
+            <h1>Flat 10% Off</h1>
+            <h1>On All Dry Fruits</h1><br>
+            <h4 style=" font-weight: 400;">
+                 Fuel your day with essential nutrients.<br> 
+                High-quality almonds, cashews, walnuts & more!
+            </h4>
+           <div class="buttons ">
+             <a href="/PRODUCTS DESIGN/PRODUCT.HTML"><button class="button-3">Explore More</button></a>
+            <a href="/PRODUCTS DESIGN/PRODUCT.HTML"><button class="button-4">Shop Now</button></a>
+           </div>
+            </div>
+        </div>
+
+        
+        <!-- page4 -->
+
+  <hr style="border: none; height: 2px; background-color: gold;">
+<header style="background:#111; padding:20px; text-align:center; border-bottom:1px solid gold;">
+  <h1 style="font-family:'Playfair Display',serif; font-size:2.5em; color:gold; margin:0;">CATAGORIES</h1>
+  <p style="color:#ccc;">Choose best for your future</p>
+</header>
+
+        <div id="page4">
+            
+            <div class="right">
+                <div class="img-sec" style="background-image: url(images/Tree\ Nuts.jpg);">
+                    <div class="after"></div>
+                    <div class="right-div">
+                        <h1>Tree Nuts</h1>
+                        <a href='/PRODUCTS DESIGN/PRODUCT.HTML'><button class="button-right">Shop Now</button></a>
+                    </div>
+                </div>
+                <div class="img-sec" style="background-image: url(images/Dried\ Dry\ Fruits.jpg);">
+                    <div class="after"></div>
+                    <div class="right-div">
+                        <h1>Dried Fruits</h1>
+                        <a href='/PRODUCTS DESIGN/PRODUCT.HTML'><button class="button-right">Shop Now</button></a>
+                    </div>
+                </div>
+                <div class="img-sec" style="background-image: url(images/Oil\ Seeds\ &\ Kernels.jpg);">
+                    <div class="after"></div>
+                    <div class="right-div">
+                        <h1>Oil Seeds & Kernels</h1>
+                        <a href='/PRODUCTS DESIGN/PRODUCT.HTML'><button class="button-right">Shop Now</button></a>
+                    </div>
+                </div>
+                <div class="img-sec" style="background-image: url(images/Exotic\ Fruits.jpg);">
+                    <div class="after"></div>
+                    <div class="right-div">
+                        <h1>Exotic Dry Fruits</h1>
+                        <a href='/PRODUCTS DESIGN/PRODUCT.HTML'><button class="button-right">Shop Now</button></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+            <!-- break-->
+        
+  <hr style="border: none; height: 2px; background-color: gold;">
+ <header style="background:#111; padding:20px; text-align:center; border-bottom:1px solid gold;">
+  <h1 style="font-family:'Playfair Display',serif; font-size:2.5em; color:gold; margin:0;">EID SPECIAL</h1>
+  <p style="color:#ccc;">Enjoy The Offer.</p>
+ </header>
+ <br>
+        <div id="page5" style="background-image: url(eid\ ul\ azha.png);">
+            <h1>AlMONDS/NUTS/DATES <br> 10 % OFF <br> On All Products</h1>
+            <div class="buttons">
+                <a href='/PRODUCTS DESIGN/PRODUCT.HTML'><button>Order Now</button></a>
+                <a href='/PRODUCTS DESIGN/PRODUCT.HTML'><button>Shop Now</button></a>
+            </div>
+        </div>
+        
+        <div id="page7">
+            
+              <!-- Break -->
+                     <br><br>
+  <hr style="border: none; height: 2px; background-color: gold;">
+<header style="background:#111; padding:20px; text-align:center; border-bottom:1px solid gold;">
+  <h1 style="font-family:'Playfair Display',serif; font-size:2.5em; color:gold; margin:0;">BENIFITS OF DRY-FRUIT </h1>
+  <p style="color:#ccc;"> Explore More To Know Importance Of Dry-Fruits </p>
+</header>
+<br><br><br>
+            
+            <div class="images">
+                <div class="items">
+                    <div class="chota-image"  style="background-image: url(images/heart.jpg);"></div>
+                    <h1>Nourish Your Heart</h1>
+                    <p> Dry fruits are packed with heart-friendly nutrients like healthy fats, antioxidants, and essential vitamins. Regular consumption can help lower bad cholesterol levels, reduce inflammation, and improve overall cardiovascular function, supporting a healthier heart.</p>
+                    <button>Read More</button>
+                </div>
+                <div class="items">
+                    <div class="chota-image" style="background-image: url(images/energy.jpg);"></div>
+                    <h1>Natural Energy booster</h1>
+                    <p> Dry fruits are an excellent natural source of energy due to their high content of healthy fats, natural sugars, and essential nutrients. They provide a quick and sustained energy boost, making them ideal for snacks, workouts, or long days without causing energy crashes.</p>
+                    <button>Read More</button>
+                </div>
+                <div class="items">
+                    <div class="chota-image" style="background-image: url(images/skin.jpg);"></div>
+                    <h1>Nourish Your Skin </h1>
+                    <p> Dry fruits contribute significantly to healthy, glowing skin as they are rich in antioxidants, vitamins E and A, and essential fatty acids. These nutrients help combat premature aging, maintain skin elasticity, and promote a clear, radiant complexion from within.</p>
+                    <button>Read More</button>
+                </div>
+            </div>
+        </div>
+    </div>
+   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+    <footer class="modern-footer">
+      <div class="footer-wave"></div>
+      <div class="footer-container">
+        <div class="footer-column brand">
+          <h2 style="color: #ddd;">Maru - DRYFRUITS</h2>
+          <p>"Subscribe to MaruDF to discover premium dry fruits, expert tips, and behind-the-scenes stories of nature’s finest harvest."</p>
+        </div>
+
+        <div class="footer-column office" >
+          <h3 style="color: #ddd;">APTECH </h3>
+          <p>SCHEME 33 GULZAR - E - HIJRI<br>Karachi, Pakistan</p>
+          <p>liangsiperfecter@gmail.com</p>
+          <a href="https://wa.me/+923369993978">
+            <p>+92 3369993978
+          </a>
+          </p>
+        </div>
+
+        <div class="footer-column links">
+          <h3 style="color: #ddd;">Links</h3>
+          <ul>
+            <li><a href="/HOMEPAGE DESIGN/index.html">Home</a></li>
+            <li><a href="/ABOUT DESIGN/about.html">About</a></li>
+            <li><a href="/PRODUCTS DESIGN/PRODUCT.HTML">Products</a></li>
+            <li><a href="/CONTACT DESIGN/contact.html">Contact</a></li>
+          </ul>
+        </div>
+
+      </div>
+      <a href="/OUR WEB CRAFTERS/PROF.HTML" class="web-btn">
+        <h1 style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; text-align: center; color: #d4af37;">WEB CREATOR</h1>
+      </a>
+      <div class="footer-bottom">
+        <p style="color: #ddd;">© <span id="year" style="color: #ddd;"></span> MaruDF — All Rights Reserved</p>
+        <p style="color: #ddd;">Crafted with Aptech SCHEME 33 by LIANG SI
+        </p>
+      </div>
+      <style>
+        /* footer.css */
+        * {
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+        }
+
+        footer {
+          font-family: 'Poppins', sans-serif;
+        }
+
+        .modern-footer {
+          background: linear-gradient(to right, #000, #000, #d4af37);
+          color: #fff;
+          position: relative;
+          padding-top: 80px;
+          overflow: hidden;
+        }
+
+        .footer-wave {
+          position: absolute;
+          top: -60px;
+          left: 0;
+          width: 100%;
+          height: 60px;
+          background-color: #ecf0f3;
+          border-top-left-radius: 100% 60px;
+        }
+
+        .footer-container {
+          max-width: 1200px;
+          margin: auto;
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: space-between;
+          gap: 30px;
+          padding: 40px 20px;
+        }
+
+        .footer-column {
+          flex: 1;
+          min-width: 220px;
+        }
+
+        .web-btn {
+          width: 100%;
+          padding: 10px;
+          text-align: left;
+          color: gold;
+          border: none;
+          outline: none;
+          cursor: pointer;
+          font-size: 16px;
+          transition: background-color 0.3s;
+        }
+
+
+
+        .footer-column h2 {
+          font-size: 24px;
+          margin-bottom: 15px;
+          font-weight: 700;
+        }
+
+        .footer-column h3 {
+          font-size: 18px;
+          margin-bottom: 15px;
+          position: relative;
+        }
+
+        .footer-column h3::after {
+          content: '';
+          width: 40px;
+          height: 2px;
+          background: #f1c40f;
+          position: absolute;
+          left: 0;
+          bottom: -5px;
+        }
+
+        .footer-column p,
+        .footer-column a {
+          color: #ddd;
+          font-size: 14px;
+          margin-bottom: 10px;
+          text-decoration: none;
+        }
+
+        .footer-column ul {
+          list-style: none;
+          padding: 0;
+        }
+
+        .footer-column ul li {
+          margin-bottom: 10px;
+        }
+
+        .footer-column a:hover {
+          color: #f1c40f;
+        }
+
+        .newsletter form {
+          display: flex;
+          border-bottom: 1px solid #888;
+          padding-bottom: 10px;
+        }
+
+        .newsletter input {
+          flex: 1;
+          padding: 8px;
+          border: none;
+          background: none;
+          color: #fff;
+          outline: none;
+        }
+
+        .newsletter button {
+          background: none;
+          border: none;
+          color: #f1c40f;
+          font-size: 18px;
+          cursor: pointer;
+        }
+
+        .socials {
+          margin-top: 15px;
+        }
+
+        .socials a {
+          color: #fff;
+          font-size: 18px;
+          margin-right: 15px;
+          transition: color 0.3s;
+        }
+
+        .socials a:hover {
+          color: #f1c40f;
+        }
+
+        .footer-bottom {
+          text-align: center;
+          padding: 20px;
+          border-top: 1px solid #e0d2d2;
+          font-size: 14px;
+          color: #ccc;
+        }
+
+        .footer-bottom strong {
+          color: #f1c40f;
+        }
+
+        @media (max-width: 768px) {
+          .footer-container {
+            flex-direction: column;
+            text-align: center;
+          } 
+
+          .newsletter form {
+            justify-content: center;
+          }
+        }
+      </style>
+      <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+      <script>
+        // footer.js
+        document.addEventListener('DOMContentLoaded', () => {
+          document.getElementById('year').textContent = new Date().getFullYear();
+        });
+      </script>
+    </footer>
+ 
+   
+    <script src="footer.js"></script>
+    
+</body>
+
+</html>
