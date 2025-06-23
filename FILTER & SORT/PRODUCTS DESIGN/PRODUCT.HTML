@@ -339,6 +339,7 @@
     </div>
     <div class="offcanvas-body" id="cartItemsContainer"><p class="text-muted">No items yet.</p></div>
     <div class="p-3 border-top">
+      <button class="btn btn-success w-100 mb-3" onclick="window.location.href='../ACCOUNTS LOGIN/login-register.html'">Login</button>
       <button class="btn btn-success w-100" id="checkoutBtn">🧾 Go to Checkout</button>
     </div>
   </div>
@@ -536,15 +537,12 @@
     }
   }
 
-  document.getElementById('checkoutBtn').addEventListener('click', () => {
-    alert("Proceeding to checkout...");
-    const name = currentProduct.name;
-    const price = currentProduct.price;
-    const image = currentProduct.photo;
-    const obj = { ProductName: name, ProductPrice: price, ProductImage: image };
-    localStorage.setItem('Details', JSON.stringify(obj));
-    window.location.href = "/CHECKOUT DESIGN/index.html";
-  });
+ document.getElementById('checkoutBtn').addEventListener('click', () => {
+  alert("Proceeding to checkout...");
+  localStorage.setItem('CartItems', JSON.stringify(cart)); // save entire cart
+  window.location.href = "/CHECKOUT DESIGN/index.html";
+});
+
 
   categoryFilter.addEventListener('change', updateDisplay);
   sortPrice.addEventListener('change', updateDisplay);

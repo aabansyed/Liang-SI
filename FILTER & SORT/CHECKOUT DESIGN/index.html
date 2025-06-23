@@ -187,32 +187,41 @@
 </model-viewer>
 
 <script>
-  // Get product info from localStorage
-  var details = JSON.parse(localStorage.getItem('Details')) || {
-    ProductName: "Sample Product",
-    ProductPrice: 1000,
-    Quantity: 1
-  };
+  const cartItems = JSON.parse(localStorage.getItem('CartItems')) || [];
 
-  var quantity = details.Quantity || 1;
-  var totalPrice = parseFloat(details.ProductPrice) * quantity;
-  var deliveryFee = 200;
-  var discount = totalPrice * 0.10;
-  var grandTotal = totalPrice + deliveryFee - discount;
+  const orderItemsContainer = document.getElementById('orderItems');
+  const totalAmountSpan = document.getElementById('totalAmount');
+  const deliveryFeeSpan = document.getElementById('deliveryFee');
+  const discountSpan = document.getElementById('discount');
+  const grandTotalSpan = document.getElementById('grandTotal');
 
-  // Show in summary
-  document.getElementById('orderItems').innerHTML = `
-    <div class="order-item">
-      <span>${details.ProductName} x ${quantity}</span>
-      <span>Rs. ${totalPrice.toFixed(0)}</span>
-    </div>
-  `;
-  document.getElementById('totalAmount').innerText = `Rs. ${totalPrice.toFixed(0)}`;
-  document.getElementById('deliveryFee').innerText = `Rs. ${deliveryFee}`;
-  document.getElementById('discount').innerText = `Rs. ${discount.toFixed(0)}`;
-  document.getElementById('grandTotal').innerText = `Rs. ${grandTotal.toFixed(0)}`;
+  let totalAmount = 0;
+  let deliveryFee = 200;
 
-  // Save all info to localStorage on order
+  // Build the cart items display
+  orderItemsContainer.innerHTML = '';
+  cartItems.forEach(item => {
+    const itemTotal = item.unitPrice * item.qty;
+    totalAmount += itemTotal;
+
+    orderItemsContainer.innerHTML += `
+      <div class="order-item">
+        <span>${item.name} (${item.size}) x ${item.qty}</span>
+        <span>Rs. ${itemTotal.toFixed(0)}</span>
+      </div>
+    `;
+  });
+
+  const discount = totalAmount * 0.10;
+  const grandTotal = totalAmount + deliveryFee - discount;
+
+  // Update totals
+  totalAmountSpan.innerText = `Rs. ${totalAmount.toFixed(0)}`;
+  deliveryFeeSpan.innerText = `Rs. ${deliveryFee}`;
+  discountSpan.innerText = `Rs. ${discount.toFixed(0)}`;
+  grandTotalSpan.innerText = `Rs. ${grandTotal.toFixed(0)}`;
+
+  // Save on order
   function submitOrder() {
     const fullname = document.getElementById('fullname').value.trim();
     const mobile = document.getElementById('mobile').value.trim();
@@ -241,9 +250,8 @@
     };
 
     const orderInfo = {
-      product: details.ProductName,
-      qty: quantity,
-      total: totalPrice,
+      cart: cartItems,
+      total: totalAmount,
       delivery: deliveryFee,
       discount: discount,
       grandTotal: grandTotal,
@@ -256,5 +264,6 @@
     window.location.href = "thankyou.html";
   }
 </script>
+
 </body>
 </html>
