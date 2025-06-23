@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Checkout Page</title>
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f8f9fa;
+      margin: 0;
+      padding: 20px;
+    }
+    .checkout-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+    }
+    .checkout-form, .order-summary {
+      flex: 1 1 45%;
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    h2 {
+      margin-bottom: 20px;
+    }
+    .row {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 15px;
+    }
+    .field {
+      flex: 1;
+    }
+    input, select, textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+    .payment-option {
+      background: #e9ecef;
+      padding: 12px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    .place-order {
+      background-color: #28a745;
+      color: white;
+      border: none;
+      padding: 12px;
+      width: 100%;
+      font-size: 16px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .order-items, .order-totals {
+      margin-top: 10px;
+    }
+    .order-item, .line {
+      display: flex;
+      justify-content: space-between;
+      padding: 6px 0;
+      border-bottom: 1px solid #eee;
+    }
+    .line.total {
+      font-weight: bold;
+      border-top: 2px solid #ccc;
+    }
+    span.required {
+      color: red;
+    }
+    .model-viewer-container {
+      margin-top: 50px;
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    iframe {
+      width: 100%;
+      height: 600px;
+      border: none;
+      border-radius: 12px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="checkout-container">
+  <!-- Checkout Form -->
+  <div class="checkout-form">
+    <h2>Checkout</h2>
+
+    <div class="row">
+      <div class="field">
+        <label for="title">Title</label>
+        <select id="title">
+          <option>Mr.</option>
+          <option>Ms.</option>
+          <option>Mrs.</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="fullname">Full Name <span class="required">*</span></label>
+        <input type="text" id="fullname" placeholder="Full Name" />
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="field">
+        <label for="mobile">Mobile Number <span class="required">*</span></label>
+        <input type="tel" id="mobile" placeholder="03xx-xxxxxxx" />
+      </div>
+      <div class="field">
+        <label for="alt-mobile">Alternate Mobile</label>
+        <input type="tel" id="alt-mobile" placeholder="03xx-xxxxxxx" />
+      </div>
+    </div>
+
+    <label for="address">Delivery Address <span class="required">*</span></label>
+    <input type="text" id="address" placeholder="Complete Address" />
+
+    <div class="row">
+      <div class="field">
+        <label for="landmark">Nearest Landmark</label>
+        <input type="text" id="landmark" placeholder="e.g., School, Plaza" />
+      </div>
+      <div class="field">
+        <label for="email">Email Address</label>
+        <input type="email" id="email" placeholder="you@example.com" />
+      </div>
+    </div>
+
+    <label for="instructions">Delivery Instructions</label>
+    <textarea id="instructions" placeholder="Any notes for rider..."></textarea>
+
+    <label>Payment Method</label>
+    <div class="payment-option" id="payment-method">
+      <i class='bx bx-money'></i> Cash on Delivery
+    </div>
+
+    <button class="place-order" onclick="submitOrder()">Place Order</button>
+  </div>
+
+  <!-- Order Summary -->
+  <div class="order-summary">
+    <h2>Your Order</h2>
+    <div class="order-items" id="orderItems"></div>
+    <div class="order-totals">
+      <div class="line"><span>Total</span><span id="totalAmount">Rs. 0</span></div>
+      <div class="line"><span>Delivery Fee</span><span id="deliveryFee">Rs. 0</span></div>
+      <div class="line discount"><span>Discount 10%</span><span id="discount">Rs. 0</span></div>
+      <div class="line total"><span>Grand Total</span><span id="grandTotal">Rs. 0</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- 3D Packaging Preview Section -->
+<div class="model-viewer-container">
+  <h2>See Our Packaging in 3D</h2>
+  <iframe 
+    src="https://www.tripo3d.ai/app/model/8306fbda-0db2-41e3-9a7e-07320ff6b21a"
+    allowfullscreen
+    loading="lazy"
+    title="3D Packaging Viewer">
+  </iframe>
+</div>
+
+<script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+
+<model-viewer 
+  src="your-model.glb"
+  alt="3D Packaging"
+  auto-rotate
+  camera-controls
+  ar
+  style="width: 100%; height: 500px;">
+</model-viewer>
+
+<script>
+  // Get product info from localStorage
+  var details = JSON.parse(localStorage.getItem('Details')) || {
+    ProductName: "Sample Product",
+    ProductPrice: 1000,
+    Quantity: 1
+  };
+
+  var quantity = details.Quantity || 1;
+  var totalPrice = parseFloat(details.ProductPrice) * quantity;
+  var deliveryFee = 200;
+  var discount = totalPrice * 0.10;
+  var grandTotal = totalPrice + deliveryFee - discount;
+
+  // Show in summary
+  document.getElementById('orderItems').innerHTML = `
+    <div class="order-item">
+      <span>${details.ProductName} x ${quantity}</span>
+      <span>Rs. ${totalPrice.toFixed(0)}</span>
+    </div>
+  `;
+  document.getElementById('totalAmount').innerText = `Rs. ${totalPrice.toFixed(0)}`;
+  document.getElementById('deliveryFee').innerText = `Rs. ${deliveryFee}`;
+  document.getElementById('discount').innerText = `Rs. ${discount.toFixed(0)}`;
+  document.getElementById('grandTotal').innerText = `Rs. ${grandTotal.toFixed(0)}`;
+
+  // Save all info to localStorage on order
+  function submitOrder() {
+    const fullname = document.getElementById('fullname').value.trim();
+    const mobile = document.getElementById('mobile').value.trim();
+    const address = document.getElementById('address').value.trim();
+    const altMobile = document.getElementById('alt-mobile').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const landmark = document.getElementById('landmark').value.trim();
+    const instructions = document.getElementById('instructions').value.trim();
+    const title = document.getElementById('title').value;
+
+    if (!fullname || !mobile || !address) {
+      alert('Please fill all required fields marked with *');
+      return;
+    }
+
+    const customerInfo = {
+      title,
+      fullname,
+      mobile,
+      altMobile,
+      email,
+      address,
+      landmark,
+      instructions,
+      payment: "Cash on Delivery"
+    };
+
+    const orderInfo = {
+      product: details.ProductName,
+      qty: quantity,
+      total: totalPrice,
+      delivery: deliveryFee,
+      discount: discount,
+      grandTotal: grandTotal,
+      placedAt: new Date().toISOString()
+    };
+
+    localStorage.setItem("CustomerInfo", JSON.stringify(customerInfo));
+    localStorage.setItem("OrderInfo", JSON.stringify(orderInfo));
+
+    window.location.href = "thankyou.html";
+  }
+</script>
+</body>
+</html>

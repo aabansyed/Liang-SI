@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Fruits & Dry Fruits Store</title>
+  <link rel="shortcut icon" href="maru dry fruit favicon.jpg" type="image/x-icon">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-image: url('logo.jpg');
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-position: center center;
+    }
+
+    .card {
+      transition: transform 0.2s ease-in-out;
+      border: none;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+      border-radius: 15px;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    .card-img-top {
+      height: 200px;
+      object-fit: cover;
+      border-top-left-radius: 15px;
+      border-top-right-radius: 15px;
+    }
+
+    .filter-section {
+      background-color: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+    }
+
+    .store-title {
+      font-size: 2.5rem;
+      font-weight: bold;
+      margin-bottom: 1rem;
+      text-align: center;
+      color: rgb(73, 175, 238);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav>
+      <div class="top-row">
+        <img src="/HOMEPAGE DESIGN/images/logo.jpg" alt="Logo">
+        <div class="hamburger" id="hamburger">☰</div>
+      </div>
+
+      <div class="nav-btns" id="nav-links">
+        <a href="/HOMEPAGE DESIGN/index.html">Home</a>
+        <a href="/ABOUT DESIGN/about.html">About</a>
+        <a href="#">Product</a>
+        <a href="/CONTACT DESIGN/contact.html">Contact</a>
+      </div>
+
+      <div class="user">
+        <a href="#"><i class="fa-solid fa-cart-shopping"></i></a>
+        <a href="/ACCOUNTS LOGIN/login-register.html"><i class="fa-solid fa-user"></i></a>
+        <div class="digital-clock">
+          <div class="time">
+            <div class="hour">12</div>
+            <div class="dot" style="background-color: transparent;">:</div>
+            <div class="min">00</div>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+  <style>
+    @font-face {
+    font-family: font;
+    src: url("vertopal.com_uK_24rSEd-Uqwk4jY1RyKvi8Ww.ttf");
+}
+@font-face {
+    font-family: "FX_LED";
+    src: url("fonts/FX_LED.TTF");
+}
+
+@font-face {
+    font-family: "Hack";
+    src: url("fonts/Hack-Bold.ttf");
+}
+
+        nav {
+            top: 0;
+            position: relative;
+            z-index: 99;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 2rem;
+            background-color: #3d3d3a;
+            flex-wrap: wrap;
+        }
+
+        nav img {
+            border-radius: 50%;
+            width: 3rem;
+            height: 3rem;
+            object-fit: cover;
+        }
+
+        .nav-btns {
+            display: flex;
+            gap: 4rem;
+        }
+
+        .nav-btns a {
+            color: white;
+            font-size: 1.2rem;
+            position: relative;
+            text-transform: uppercase;
+            font-family: emoji;
+            text-decoration: none;
+        }
+
+        .nav-btns a::after {
+            content: "";
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: gold;
+            transition: width 0.3s;
+        }
+
+        .nav-btns a:hover::after {
+            width: 100%;
+        }
+
+        .user {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .user a i {
+            color: white;
+        }
+
+        .digital-clock {
+            display: flex;
+            align-items: center;
+            background-color: #1a1919;
+            color: white;
+            border-radius: 2rem;
+            padding: 0.5rem 1rem;
+            font-family: monospace;
+            border: 0.25rem solid #2d2d2d;
+        }
+
+        .week {
+            display: none;
+        }
+
+        .time {
+            display: flex;
+            gap: 0.25rem;
+            font-size: 1rem;
+        }
+
+        .invisible {
+            visibility: hidden;
+        }
+
+        .hamburger {
+            display: none;
+            font-size: 1.5rem;
+            color: white;
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .top-row {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                width: 100%;
+            }
+
+            .user {
+                order: 2;
+                justify-content: flex-end;
+                width: 100%;
+                margin-top: 0.5rem;
+            }
+
+            .nav-btns {
+                flex-direction: column;
+                width: 100%;
+                display: none;
+                background-color: black;
+                margin-top: 1rem;
+            }
+
+            .nav-btns.show {
+                display: flex;
+            }
+
+            .hamburger {
+                display: block;
+            }
+        }
+  </style>
+<script>
+  // Clock logic
+        const hour = document.querySelector('.hour');
+        const min = document.querySelector('.min');
+        const dot = document.querySelector('.dot');
+
+        let showDot = true;
+
+        function updateClock() {
+            const now = new Date();
+            showDot = !showDot;
+            dot.classList.toggle('invisible', showDot);
+            let hr = now.getHours() % 12 || 12;
+            hour.textContent = String(hr).padStart(2, '0');
+            min.textContent = String(now.getMinutes()).padStart(2, '0');
+        }
+
+        setInterval(updateClock, 500);
+        updateClock();
+
+        // Hamburger toggle
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('nav-links');
+
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('show');
+        });
+
+</script>
+  <div class="container">
+    <div class="store-title">🍎 Fruits & Dry Fruits Store 🥭</div>
+
+    <div class="row mb-4 filter-section">
+      <div class="col-md-6">
+        <label for="categoryFilter" class="form-label">Filter by Category:</label>
+        <select id="categoryFilter" class="form-select">
+          <option value="all">All</option>
+          <option value="dryfruits">Dry Fruits</option>
+          <option value="nuts">Nuts</option>
+          <option value="seeds">Seeds</option>
+        </select>
+      </div>
+      <div class="col-md-6">
+        <label for="sortPrice" class="form-label">Sort by Price:</label>
+        <select id="sortPrice" class="form-select">
+          <option value="none">None</option>
+          <option value="low">Low to High</option>
+          <option value="high">High to Low</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="row" id="productList"></div>
+  </div>
+
+  <!-- Product Detail Modal -->
+  <div class="modal fade" id="cartModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+      <div class="modal-content">
+        <div class="modal-body d-flex flex-column flex-md-row p-0">
+          <div class="col-md-5 bg-black d-flex align-items-center justify-content-center p-4">
+            <img id="modalImage" src="" alt="Product" class="img-fluid rounded" style="max-height: 400px;">
+          </div>
+          <div class="col-md-7 p-4">
+            <div class="d-flex justify-content-between align-items-start">
+              <div>
+                <h4 id="modalName" class="fw-bold mb-1">Product Name</h4>
+                <p class="text-muted mb-2">
+                  <del id="modalOldPrice">Rs. 0</del>
+                  <span id="modalPrice" class="fw-bold text-success">Rs. 0</span>
+                </p>
+                <p class="small text-secondary" id="modalDescription"></p>
+              </div>
+              <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="mt-3">
+              <strong>Choose Size</strong>
+              <div class="form-check">
+                <input class="form-check-input size-radio" type="radio" name="size" id="sizeKG" value="KG" checked>
+                <label class="form-check-label" for="sizeKG">KG</label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input size-radio" type="radio" name="size" id="sizePOW" value="POW">
+                <label class="form-check-label" for="sizePOW">POW</label>
+              </div>
+            </div>
+
+            <div class="mt-3">
+              <strong>Quantity</strong>
+              <div class="input-group mt-1" style="max-width: 150px;">
+                <button class="btn btn-outline-secondary" id="qtyMinus">−</button>
+                <input type="number" class="form-control text-center" id="qtyInput" value="1" min="1">
+                <button class="btn btn-outline-secondary" id="qtyPlus">+</button>
+              </div>
+            </div>
+
+            <div class="mt-3">
+              <h5>Total: <span id="totalPrice" class="text-primary">Rs. 0</span></h5>
+            </div>
+
+            <div class="mt-4">
+              <button class="btn btn-primary w-100" id="confirmAddToCartBtn">🛒 Add to Cart</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Side Cart Offcanvas -->
+  <div class="offcanvas offcanvas-end" tabindex="-1" id="sideCart">
+    <div class="offcanvas-header">
+      <h5 class="offcanvas-title">🛒 Your Cart</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+    </div>
+    <div class="offcanvas-body" id="cartItemsContainer"><p class="text-muted">No items yet.</p></div>
+    <div class="p-3 border-top">
+      <button class="btn btn-success w-100" id="checkoutBtn">🧾 Go to Checkout</button>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  const products = [
+    { name: "Almonds", price: 4200, category: "nuts", photo: "https://img.freepik.com/premium-photo/organic-almond-nut-isolated-white-background_299651-2983.jpg?w=996" },
+    { name: "Plain Cashews", price: 2500, category: "nuts", photo: "https://img.freepik.com/free-photo/raw-cashews-nuts-bowl-dark-background_1150-45357.jpg" },
+    { name: "Peanut", price: 750, category: "nuts", photo: "https://img.freepik.com/premium-photo/peanut-pods-with-green-leaves_159938-9.jpg?w=826" },
+    { name: "Walnuts", price: 2900, category: "nuts", photo: "https://thebirdstore.com/wp-content/uploads/2020/05/walnut-1-scaled.jpg" },
+    { name: "Pistachios", price: 4000, category: "nuts", photo: "https://tse3.mm.bing.net/th?id=OIP.xhITmRlZ1uYPteN2Ko1SIAHaE8&pid=Api&P=0&h=220" },
+    { name: "Hazelnuts", price: 2500, category: "nuts", photo: "https://www.healthbenefitstimes.com/9/gallery/hazelnuts/Hazelnuts.jpg" },
+    { name: "Chironji", price: 19600, category: "nuts", photo: "https://www.netmeds.com/images/cms/wysiwyg/blog/2024/10/1729664900_Chironji_1200x450.jpg" },
+    { name: "Pecans", price: 4250, category: "nuts", photo: "https://tse4.mm.bing.net/th?id=OIP.XxBP5ju8RvpS4SCRsQPWnwHaE8&pid=Api&P=0&h=220" },
+    { name: "Brazil Nuts", price: 9400, category: "nuts", photo: "https://tse4.mm.bing.net/th?id=OIP.gXlYt_kEMECnOMExrwv28wHaE8&pid=Api&P=0&h=220" },
+    { name: "Macadamia Nuts", price: 4300, category: "nuts", photo: "https://www.ohnuts.com/noapp/showImage.cfm/zoom/Macadamia%20In%20Shell1.jpg" },
+    // end of nuts
+    
+    { name: "Dates", price: 750, category: "dryfruits", photo: "https://tse3.mm.bing.net/th?id=OIP.1toJuITfsbeT5rNNZhRFGwHaFP&pid=Api&P=0&h=220" },
+    { name: "Figs (Anjeer)", price: 5500, category: "dryfruits", photo: "https://tse1.mm.bing.net/th?id=OIP.Gp0-qj0v5CoXpim8Ry0gkQHaHa&pid=Api&P=0&h=220" },
+    { name: "Dried Kiwi", price: 4500, category: "dryfruits", photo: "https://tse1.mm.bing.net/th?id=OIP.y_MNZtC_sCmjvMyp-Kf7wwHaE7&pid=Api&P=0&h=220" },
+    { name: "Dried Mango", price: 5000, category: "dryfruits", photo: "https://images.eatthismuch.com/site_media/img/90377_AgustinusLaw_588a7b03-4adc-4633-9503-161edbbfb2fd.png" },
+    { name: "Dried Papaya", price: 5000, category: "dryfruits", photo: "https://www.jaindryfruits.com/image/cache/catalog/Berry/papaya-800x800-product_popup.jpg" },
+    { name: "Dried Cherries", price: 1900, category: "dryfruits", photo: "https://foodtolive.com/wp-content/uploads/2017/04/Organic_Dried_Cherries.jpg" },
+    { name: "Dried Coconut", price: 1400, category: "dryfruits", photo: "https://img.freepik.com/free-photo/coconut-isolated-white-background_2829-6286.jpg?t=st=1750312282~exp=1750315882~hmac=9cb9b005effdc9b805e38b06979aa33c07ea04b8362a20c02a542abb0f8ee3ab&w=826" },
+    { name: "Apricots", price: 2000, category: "dryfruits", photo: "https://cdn.shopify.com/s/files/1/2331/3573/products/2967.jpg?v=1537694602" },
+    { name: "Prunes", price: 3500, category: "dryfruits", photo: "https://img-3.journaldesfemmes.fr/E5WdPahRTeMPTQQQJf7AK_k-uoA=/1500x/smart/f1a9ed525a6f4b7ca97720228bc415f5/ccmcms-jdf/10663036.jpg" },
+    { name: "Dried Blueberries", price: 7500, category: "dryfruits", photo: "https://preserveandpickle.com/wp-content/uploads/2021/12/Dehydrating-Blueberries.jpg" },
+    { name: "Dried Cranberries", price: 5000, category: "dryfruits", photo: "https://tse4.mm.bing.net/th?id=OIP.F6fmZx7DLKqTDTZnCokL7QHaE8&pid=Api&P=0&h=220" },
+    { name: "Dried Apple", price: 2800, category: "dryfruits", photo: "https://img.freepik.com/free-photo/green-apple-sitting-pile-dried-apple-slices-white-background_114579-23984.jpg?t=st=1750232572~exp=1750236172~hmac=1fc377605f7157d330b1c8d0d5767e32552365e06a56c34ecf1ead76c19d5c92&w=826" },
+    // end of dry fruits
+    { name: "Pine Nuts", price: 13500, category: "seeds", photo: "https://www.thespruceeats.com/thmb/ccOvmaY71HiTZ9EOOk9cnxOsG8o=/2121x1414/filters:fill(auto,1)/pinenuts-5acd007ba474be0036f05ac0.jpg" },
+    { name: "Sunflower Seeds", price: 1050, category: "seeds", photo: "https://img.freepik.com/premium-photo/yellow-sunflower-sunflower-seeds-isolated-white-background_106006-6295.jpg?w=826" },
+    { name: "Chia Seeds", price: 2500, category: "seeds", photo: "https://tse4.mm.bing.net/th?id=OIP.g6UGXdd4SGXGEXLuXcOeUgHaE8&pid=Api&P=0&h=220" },
+    { name: "Pumpkin Seeds", price: 2500, category: "seeds", photo: "https://www.simplyrecipes.com/thmb/O_239wN5DPKO4nzkGsmuf4FLuKk=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/__opt__aboutcom__coeus__resources__content_migration__simply_recipes__uploads__2014__10__roasted-pumpkin-seeds-horiz-a-1500-1bd94738d22143d3b67cd1eb5176f427.jpg" },
+    { name: "Fennel Seeds", price: 2500, category: "seeds", photo: "https://img.freepik.com/premium-photo/pumpkin-seeds-white-wall_253984-3092.jpg?w=826" },
+    { name: "Flax Seeds", price: 1500, category: "seeds", photo: "https://thumbs.dreamstime.com/b/flax-seeds-isolated-white-background-close-up-flax-seeds-white-background-close-up-167397808.jpg" }
+
+
+  ];
+
+  const productList = document.getElementById('productList');
+  const categoryFilter = document.getElementById('categoryFilter');
+  const sortPrice = document.getElementById('sortPrice');
+  const cart = [];
+
+  let currentProduct = null;
+
+  function renderProducts(items) {
+    productList.innerHTML = '';
+    items.forEach(product => {
+      const col = document.createElement('div');
+      col.className = 'col-md-4 mb-4';
+      col.innerHTML = `
+        <div class="card h-100" style="cursor:pointer;">
+          <img src="${product.photo}" class="card-img-top" alt="${product.name}">
+          <div class="card-body">
+            <h5 class="card-title">${product.name}</h5>
+            <p class="card-text text-muted">Category: ${product.category}</p>
+            <p class="card-text fw-bold text-success">Price: Rs ${product.price.toFixed(2)}</p>
+            <button class="btn btn-warning w-100">Add to Cart 🛒</button>
+          </div>
+        </div>
+      `;
+      col.querySelector('button').addEventListener('click', () => openCartModal(product));
+      productList.appendChild(col);
+    });
+  }
+
+  function updateDisplay() {
+    let filtered = [...products];
+    const category = categoryFilter.value;
+    if (category !== 'all') filtered = filtered.filter(p => p.category === category);
+    const sort = sortPrice.value;
+    if (sort === 'low') filtered.sort((a, b) => a.price - b.price);
+    else if (sort === 'high') filtered.sort((a, b) => b.price - a.price);
+    renderProducts(filtered);
+  }
+
+  function openCartModal(product) {
+    currentProduct = product;
+    document.getElementById('modalName').textContent = product.name;
+    document.getElementById('modalImage').src = product.photo;
+    document.getElementById('modalDescription').textContent = `Category: ${product.category}`;
+    document.getElementById('modalOldPrice').textContent = `Rs. ${product.price + 100}`;
+    document.getElementById('modalPrice').textContent = `Rs. ${product.price}`;
+    document.getElementById('sizeKG').checked = true;
+    document.getElementById('qtyInput').value = 1;
+    updateTotalPrice();
+    setupQtyButtons();
+    new bootstrap.Modal(document.getElementById('cartModal')).show();
+  }
+
+  function updateTotalPrice() {
+    const size = document.querySelector('input[name="size"]:checked').value;
+    const qty = parseInt(document.getElementById('qtyInput').value);
+    let unitPrice = currentProduct.price;
+    if (size === 'POW') unitPrice -= 1000;
+    document.getElementById('totalPrice').textContent = `Rs. ${(unitPrice * qty).toFixed(2)}`;
+  }
+
+  function setupQtyButtons() {
+    const qtyInput = document.getElementById('qtyInput');
+    document.getElementById('qtyMinus').onclick = () => {
+      if (qtyInput.value > 1) {
+        qtyInput.value--;
+        updateTotalPrice();
+      }
+    };
+    document.getElementById('qtyPlus').onclick = () => {
+      qtyInput.value++;
+      updateTotalPrice();
+    };
+    qtyInput.oninput = () => {
+      if (qtyInput.value < 1) qtyInput.value = 1;
+      updateTotalPrice();
+    };
+  }
+
+  document.querySelectorAll('.size-radio').forEach(radio => {
+    radio.addEventListener('change', updateTotalPrice);
+  });
+
+  document.getElementById('confirmAddToCartBtn').addEventListener('click', () => {
+    const size = document.querySelector('input[name="size"]:checked').value;
+    const qty = parseInt(document.getElementById('qtyInput').value);
+    let unitPrice = currentProduct.price;
+    if (size === 'POW') unitPrice -= 1000;
+    const total = unitPrice * qty;
+    cart.push({ name: currentProduct.name, image: currentProduct.photo, size, qty, unitPrice, total });
+    updateCartUI();
+    bootstrap.Modal.getInstance(document.getElementById('cartModal')).hide();
+    new bootstrap.Offcanvas(document.getElementById('sideCart')).show();
+  });
+
+  function updateCartUI() {
+    const container = document.getElementById('cartItemsContainer');
+    container.innerHTML = '';
+
+    if (cart.length === 0) {
+      container.innerHTML = '<p class="text-muted">No items yet.</p>';
+      return;
+    }
+
+    cart.forEach((item, index) => {
+      const div = document.createElement('div');
+      div.className = 'd-flex mb-3 align-items-center border-bottom pb-2';
+      div.innerHTML = `
+        <img src="${item.image}" class="me-2 rounded" style="width: 60px; height: 60px; object-fit: cover;">
+        <div class="flex-grow-1">
+          <h6 class="mb-0">${item.name}</h6>
+          <small class="text-muted">${item.size}</small><br>
+          <div class="input-group input-group-sm mt-1" style="max-width: 140px;">
+            <button class="btn btn-outline-secondary btn-sm minus-btn" data-index="${index}">−</button>
+            <input type="number" class="form-control text-center qty-input" data-index="${index}" value="${item.qty}" min="1">
+            <button class="btn btn-outline-secondary btn-sm plus-btn" data-index="${index}">+</button>
+          </div>
+          <strong class="text-primary d-block mt-1" id="item-total-${index}">Rs. ${item.total.toFixed(2)}</strong>
+        </div>
+      `;
+      container.appendChild(div);
+    });
+
+    document.querySelectorAll('.plus-btn').forEach(btn =>
+      btn.addEventListener('click', (e) => updateItemQty(parseInt(e.target.dataset.index), 1))
+    );
+
+    document.querySelectorAll('.minus-btn').forEach(btn =>
+      btn.addEventListener('click', (e) => updateItemQty(parseInt(e.target.dataset.index), -1))
+    );
+
+    document.querySelectorAll('.qty-input').forEach(input =>
+      input.addEventListener('input', (e) => {
+        const index = parseInt(e.target.dataset.index);
+        let newQty = parseInt(e.target.value);
+        if (isNaN(newQty) || newQty < 1) newQty = 1;
+        updateItemQty(index, 0, newQty);
+      })
+    );
+  }
+
+  function updateItemQty(index, delta = 0, directQty = null) {
+    if (cart[index]) {
+      if (directQty !== null) {
+        cart[index].qty = directQty;
+      } else {
+        cart[index].qty += delta;
+        if (cart[index].qty < 1) cart[index].qty = 1;
+      }
+      cart[index].total = cart[index].qty * cart[index].unitPrice;
+
+      document.querySelector(`.qty-input[data-index="${index}"]`).value = cart[index].qty;
+      document.getElementById(`item-total-${index}`).textContent = `Rs. ${cart[index].total.toFixed(2)}`;
+    }
+  }
+
+  document.getElementById('checkoutBtn').addEventListener('click', () => {
+    alert("Proceeding to checkout...");
+    const name = currentProduct.name;
+    const price = currentProduct.price;
+    const image = currentProduct.photo;
+    const obj = { ProductName: name, ProductPrice: price, ProductImage: image };
+    localStorage.setItem('Details', JSON.stringify(obj));
+    window.location.href = "/CHECKOUT DESIGN/index.html";
+  });
+
+  categoryFilter.addEventListener('change', updateDisplay);
+  sortPrice.addEventListener('change', updateDisplay);
+
+  // Initial load
+  renderProducts(products);
+</script>
+
+</body>
+</html>
