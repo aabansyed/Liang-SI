@@ -13,8 +13,17 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
     integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <link rel="shortcut icon" href="images/wake oye favicon.jpg" type="image/x-icon">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+  <!-- emailjs -->
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
+  </script>
+  <script type="text/javascript">
+    (function () {
+      emailjs.init({
+        publicKey: "mitqMJt33FEjAYSuC",
+      });
+    })();
+  </script>
 </head>
 
 <body>
@@ -65,22 +74,22 @@
   <section class="contact">
 
     <br><br><br><br><br><br>
-    
+
     <div class="contactform">
       <h2>Send Message</h2>
 
       <div class="inputbox">
-        <input type="text" id="name" required>
-        <span>Full Name</span>
-      </div>
-      <div class="inputbox">
-        <input type="email" id="email" required>
-        <span>Email</span>
-      </div>
-      <div class="inputbox">
-        <input type="number" id="number" required>
-        <span>Phone Number</span>
-        <br><br>
+        <input type="text" id="subject" required>
+        <span>Subject</span>
+        <br><br><br>
+        <div class="inputbox">
+          <input type="text" id="name" required>
+          <span>Full Name</span>
+        </div>
+        <div class="inputbox">
+          <input type="email" id="email" required>
+          <span>Email</span>
+        </div>
         <div class="inputbox">
           <textarea id="message" required></textarea>
           <span>Type Your Message...</span>
