@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Cart Flow</title>
+  <style>
+    #checkoutBtn { display: none; }
+  </style>
+</head>
+<body>
+
+  <h2>Product</h2>
+  <button onclick="goToCart()">Add to Cart</button>
+
+  <hr>
+
+  <div id="cartPage" style="display: none;">
+    <h2>Cart</h2>
+    <button id="loginBtn" onclick="login()">Login</button>
+    <button id="checkoutBtn">Checkout</button>
+  </div>
+
+  <script>
+    let isLoggedIn = false;
+
+    function goToCart() {
+      document.getElementById("cartPage").style.display = "block";
+      updateCartUI();
+    }
+
+    function login() {
+      alert("You need to login first!");
+      const confirmLogin = confirm("Do you want to login?");
+      if (confirmLogin) {
+        isLoggedIn = true;
+        updateCartUI();
+      }
+    }
+
+    function updateCartUI() {
+      if (isLoggedIn) {
+        document.getElementById("loginBtn").style.display = "none";
+        document.getElementById("checkoutBtn").style.display = "inline-block";
+      } else {
+        document.getElementById("loginBtn").style.display = "inline-block";
+        document.getElementById("checkoutBtn").style.display = "none";
+      }
+    }
+  </script>
+
+</body>
+</html>
