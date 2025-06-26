@@ -76,17 +76,18 @@
   </div>
 </div>
 
-<!-- JS -->
+<!-- JavaScript -->
 <script>
-  // Toggle login/register
+  // Toggle login/register view
   document.querySelector('.register-btn').addEventListener('click', () => {
     document.querySelector('.container').classList.add('active');
   });
+
   document.querySelector('.login-btn').addEventListener('click', () => {
     document.querySelector('.container').classList.remove('active');
   });
 
-  // Register form
+  // Handle registration
   document.getElementById("register-form").addEventListener("submit", function (e) {
     e.preventDefault();
     const name = document.getElementById("reg-name").value.trim();
@@ -94,28 +95,32 @@
     const password = document.getElementById("reg-password").value.trim();
 
     const user = { name, email, password };
+
+    // Save to localStorage
     localStorage.setItem("user", JSON.stringify(user));
     alert("Registration successful! Please login.");
+
+    // Switch to login view
     document.querySelector('.container').classList.remove('active');
   });
 
-  // Login form
+  // Handle login
   document.getElementById("login-form").addEventListener("submit", function (e) {
     e.preventDefault();
     const email = document.getElementById("login-email").value.trim();
     const password = document.getElementById("login-password").value.trim();
 
     const savedUser = JSON.parse(localStorage.getItem("user"));
+
     if (savedUser && savedUser.email === email && savedUser.password === password) {
       localStorage.setItem("session", JSON.stringify(savedUser));
-      window.location.href = "dashboard.html";
+      alert("Login successful! Redirecting to Your Product...");
+      window.location.href = "/PRODUCTS DESIGN/PRODUCT.HTML"; // You must create this file
     } else {
       alert("Invalid email or password.");
     }
   });
-  
 </script>
-
 
 </body>
 </html>

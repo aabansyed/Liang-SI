@@ -228,7 +228,7 @@
     if (!order || !customer) {
       cartList.innerHTML = "<li>Order not found. Please try again.</li>";
     } else {
-      const li = document.createElement("li");
+      var li = document.createElement("li");
       li.innerHTML = `🍽️ <strong>${order.product}</strong> × ${order.qty} <br>
         🧾 Total: Rs. ${order.total.toFixed(0)} <br>
         🚚 Delivery Fee: Rs. ${order.delivery} <br>
