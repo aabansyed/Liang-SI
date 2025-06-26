@@ -220,6 +220,10 @@
                 display: block;
             }
         }
+        #checkoutBtn{
+          display: none;
+
+        }
   </style>
 <script>
   // Clock logic
@@ -339,7 +343,7 @@
     </div>
     <div class="offcanvas-body" id="cartItemsContainer"><p class="text-muted">No items yet.</p></div>
     <div class="p-3 border-top">
-      <button class="btn btn-success w-100 mb-3" onclick="window.location.href='../ACCOUNTS LOGIN/login-register.html'">Login</button>
+      <button class="btn btn-success w-100 mb-3" id="loginbutton" onclick="window.location.href='../ACCOUNTS LOGIN/login-register.html'">Login</button>
       <button class="btn btn-success w-100" id="checkoutBtn">🧾 Go to Checkout</button>
     </div>
   </div>
@@ -549,6 +553,17 @@
 
   // Initial load
   renderProducts(products);
+
+  if(localStorage.getItem('user') != null)
+{
+  document.getElementById('loginbutton').style.display = 'none';
+  document.getElementById('checkoutBtn').style.display = 'block';
+}
+else
+{
+  document.getElementById('loginbutton').style.display = 'block';
+  document.getElementById('checkoutBtn').style.display = 'none';
+}
 </script>
 
 </body>
