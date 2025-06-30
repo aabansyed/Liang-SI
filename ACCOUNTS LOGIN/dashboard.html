@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Enhanced User Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --light-bg: #f4f6f8;
+      --dark-bg: #1c1c1e;
+      --light-card: #ffffff;
+      --dark-card: #2c2c2e;
+      --primary: #6366f1;
+      --danger: #ef4444;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--light-bg);
+      margin: 0;
+      padding: 0;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    body.dark-mode {
+      background-color: var(--dark-bg);
+      color: #f9f9f9;
+    }
+
+    .dashboard {
+      max-width: 900px;
+      margin: 3rem auto;
+      background-color: var(--light-card);
+      padding: 2.5rem;
+      border-radius: 1.5rem;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+      transition: background-color 0.3s, color 0.3s;
+      animation: fadeIn 0.6s ease-out;
+    }
+
+    body.dark-mode .dashboard {
+      background-color: var(--dark-card);
+      color: #f9f9f9;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h1, h2 {
+      font-family: 'Playfair Display', serif;
+    }
+
+    .profile-section {
+      text-align: center;
+    }
+
+    .profile-img {
+      width: 120px;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 4px solid var(--primary);
+      margin-bottom: 1rem;
+      transition: transform 0.3s;
+    }
+
+    .profile-img:hover {
+      transform: scale(1.05);
+    }
+
+    input, textarea, select, button {
+      width: 100%;
+      padding: 0.75rem;
+      border-radius: 0.5rem;
+      border: none;
+      margin-top: 0.5rem;
+      margin-bottom: 1rem;
+      font-size: 1rem;
+    }
+
+    button {
+      background-color: var(--primary);
+      color: #fff;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #4f46e5;
+    }
+
+    .danger {
+      background-color: var(--danger);
+    }
+
+    .danger:hover {
+      background-color: #dc2626;
+    }
+
+    .section {
+      margin-top: 2rem;
+    }
+
+    .toggle-mode {
+      background-color: #6b7280;
+    }
+
+    .toggle-mode:hover {
+      background-color: #4b5563;
+    }
+
+    label {
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+  <div class="dashboard">
+    <div class="profile-section">
+      <img id="profilePreview" class="profile-img" src="https://via.placeholder.com/120" alt="Profile Picture">
+      <input type="file" id="profileImageInput" accept="image/*">
+      <h1 id="user-name-display">Welcome, [User]</h1>
+      <p>Email: <span id="user-email"></span></p>
+    </div>
+
+    <div class="section">
+      <h2>Update Your Info</h2>
+      <form id="updateForm">
+        <label for="newName">New Name</label>
+        <input type="text" id="newName" placeholder="Your Name">
+
+        <label for="newEmail">New Email</label>
+        <input type="email" id="newEmail" placeholder="Your Email">
+
+        <label for="newPassword">New Password</label>
+        <input type="password" id="newPassword" placeholder="New Password">
+
+        <button type="submit">Save Changes</button>
+      </form>
+    </div>
+
+    <div class="section">
+      <h2>Feedback</h2>
+      <textarea placeholder="Share your thoughts or suggestions..."></textarea>
+      <button>Send Feedback</button>
+    </div>
+
+    <div class="section">
+      <button class="toggle-mode" onclick="toggleMode()">Toggle Dark/Light Mode</button>
+      <button onclick="logout()">Logout</button>
+      <button class="danger" onclick="deleteAccount()">Delete Account</button>
+    </div>
+  </div>
+
+  <script>
+    let currentUser = null;
+
+    function loadDashboard() {
+      const user = JSON.parse(localStorage.getItem("session"));
+      if (!user) return window.location.href = "login-register.html";
+
+      currentUser = user;
+      document.getElementById("user-name-display").textContent = `Welcome, ${user.name}`;
+      document.getElementById("user-email").textContent = user.email;
+      if (user.profilePic) {
+        document.getElementById("profilePreview").src = user.profilePic;
+      }
+    }
+
+    document.getElementById("updateForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const name = document.getElementById("newName").value.trim();
+      const email = document.getElementById("newEmail").value.trim();
+      const password = document.getElementById("newPassword").value.trim();
+      if (name) currentUser.name = name;
+      if (email) currentUser.email = email;
+      if (password) currentUser.password = password;
+
+      localStorage.setItem("user", JSON.stringify(currentUser));
+      localStorage.setItem("session", JSON.stringify(currentUser));
+      alert("Information updated!");
+      loadDashboard();
+    });
+
+    function logout() {
+      localStorage.removeItem("session");
+      window.location.href = "login-register.html";
+    }
+
+    function deleteAccount() {
+      if (confirm("Are you sure you want to delete your account?")) {
+        localStorage.removeItem("session");
+        localStorage.removeItem("user");
+        alert("Account deleted.");
+        window.location.href = "login-register.html";
+      }
+    }
+
+    function toggleMode() {
+      document.body.classList.toggle("dark-mode");
+    }
+
+    document.getElementById("profileImageInput").addEventListener("change", function () {
+      const file = this.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        const imgData = e.target.result;
+        document.getElementById("profilePreview").src = imgData;
+        currentUser.profilePic = imgData;
+        localStorage.setItem("user", JSON.stringify(currentUser));
+        localStorage.setItem("session", JSON.stringify(currentUser));
+      };
+      reader.readAsDataURL(file);
+    });
+
+    loadDashboard();
+  </script>
+</body>
+</html>

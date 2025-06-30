@@ -1,0 +1,223 @@
+body {
+  margin: 0;
+  font-family: 'Montserrat', sans-serif;
+  color: #FFF;
+  position: relative;
+  min-height: 100vh;
+  background-image: url(logo.jpg);
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url(about-bg2.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  filter: blur(8px);
+  z-index: -1;
+  margin: 0px;
+  
+}
+.overlay {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5); /* 0.5 = 50% darkness */
+  z-index: 1;
+}
+
+
+
+/* About Section */
+.about-section {
+  padding: 60px 40px;
+}
+
+.about-block {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 60px;
+  flex-wrap: wrap;
+}
+
+.about-text {
+  flex: 1;
+  max-width: 600px;
+  padding-right: 20px;
+}
+
+.about-img {
+  flex: 10;
+  max-width: 400px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: opacity 1s ease, transform 1s ease;
+}
+
+
+.about-img.fade-out {
+  opacity: 0;
+  transform: scale(0.95);
+  pointer-events: none;
+}
+.about-block {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap; /* Important for responsiveness */
+  padding: 20px;
+}
+
+.about-text {
+  flex: 1 1 50%;
+  min-width: 300px;
+}
+
+.logo-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 60px;
+  flex: 10 10px 40%;
+  justify-content: flex-end;
+  min-width: 250px;
+}
+
+.client-logo {
+  width: 100px; /* You can adjust */
+  height: auto;
+  cursor: pointer;
+  transition: opacity 0.5s;
+}
+
+
+.client-logo:hover {
+  opacity: 0.7;
+}
+
+/* Make logos and text stack on small screens */
+@media (max-width: 768px) {
+  .about-block {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .logo-grid {
+    margin-top: 20px;
+    justify-content: center;
+  }
+}
+  .fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 1s ease-out, transform 1s ease-out;
+  }
+
+  .fade-in.active {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+
+/* Horizontal Rule */
+hr {
+  border: none;
+  border-top: 1px solid #ae8757;
+  margin: 40px 0;
+}
+.team-grid {
+display: flex;
+    justify-content: space-between; /* Distributes images evenly */
+    gap: 10px; 
+    padding: 10px;
+}
+
+.team-member {
+width: 25%; 
+    height: auto; 
+    object-fit: cover;
+}
+
+.team-member img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%; /* Circle image */
+  object-fit: cover;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+  left: 20%;
+}
+
+
+/* Footer */
+footer {
+  background-color: #111;
+  color: #fff;
+  /* padding: 60px 20px 20px; */
+  font-size: 14px;
+}
+
+.footer-container {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  text-align: center;
+}
+
+.footer-section {
+  margin: 20px;
+}
+
+.footer-section h2 {
+  color: #ae8757;
+}
+
+.footer-section a,
+.footer-section p {
+  color: #fff;
+  opacity: 0.4;
+  text-decoration: none;
+}
+
+.footer-bottom {
+  text-align: center;
+  margin-top: 30px;
+}
+
+.social-icons a {
+  margin: 0 8px;
+  color: #ae8757;
+  font-size: 18px;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  
+
+  .about-block {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .about-text, .about-img {
+    max-width: 100%;
+    padding: 0;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  
+
+  .about-section {
+    padding: 40px 20px;
+  }
+
+  .footer-container {
+    flex-direction: column;
+    align-items: center;
+  }
+}
